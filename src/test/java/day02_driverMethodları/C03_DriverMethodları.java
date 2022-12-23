@@ -5,20 +5,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class C03_DriverMethodları {
     public static void main(String[] args) {
-
-        System.setProperty("webdriver.chrome.driver","src/drivers/chromedriver");
-        WebDriver driver=new ChromeDriver();
+        System.setProperty("webdriver.chrome.diver", "src/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
 
         driver.get("https://www.amazon.com");
         System.out.println(driver.getPageSource());
 
-        // pageSource2un MEOW icerdigini test edin
+        // pageSource'un MEOW icerdigini test edin
 
-        String pageSource= driver.getPageSource();
+        String pageSource = driver.getPageSource();
 
-        String expectedKelime="MEOW";
+        String expectedKelime = "MEOW";
+
+        if (pageSource.contains(expectedKelime)) {
+            System.out.println("page source testi PASSED");
+        } else {
+            System.out.println("Page source testi FAILED, MEOW kelimesi bulunamadı");
 
 
-
+        }
     }
 }
