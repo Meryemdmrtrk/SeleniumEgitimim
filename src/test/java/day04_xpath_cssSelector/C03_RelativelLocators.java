@@ -15,37 +15,47 @@ public class C03_RelativelLocators {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 
-        // 1 ) https://www.diemol.com/selenium-4-demo/relative-locators-demo.html adresine gidin
-          driver.get("https://www.diemol.com/selenium-4-demo/relative-locators-demo.html");
+        //1 ) https://www.diemol.com/selenium-4-demo/relative-locators-demo.html  adresine gidin
+        driver.get("https://www.diemol.com/selenium-4-demo/relative-locators-demo.html");
 
+        //2 ) Berlin’i  3 farkli relative locator ile locate edin
 
-        //  2 ) Berlin’i 3 farkli relative locator ile locate edin
-        WebElement sailorElement=driver.findElement(By.xpath("//p[text()=‘Sailor’]"));
+        // A- Sailor'in ustundeki diyelim
+        WebElement sailorElementi=driver.findElement(By.xpath("//p[text()='Sailor']"));
         WebElement berlin1=
-                driver.findElement(RelativeLocator.with(By.tagName("img")).above(sailorElement));
-           // Baston ın sagı dıyelım
+                driver.findElement(RelativeLocator.with(By.tagName("img")).above(sailorElementi));
+        // B-Boston'in sagi diyelim
 
-        WebElement bostonElementi=driver.findElement(By.xpath("/p[text()=‘Boston’]"));
-              // tarif etmek istediginiz web elementın bir ozellıgını kullanmalısınız
-              // ornegin tagName=img
+        WebElement bostonElementi= driver.findElement(By.xpath("//p[text()='Boston']"));
+        // tarif etmek istediginiz web elementin bir ozelligini kullanmalisiniz
+        // ornegin tagName=img
+
+        WebElement berlin2 = driver.findElement(RelativeLocator.with(By.tagName("img")).toRightOf(bostonElementi));
+        // C- NYC'nin altindaki diyelim
+
+        WebElement nyc= driver.findElement(By.xpath("//p[text()='NYC']"));
+        WebElement berlin3=driver.findElement(RelativeLocator.with(By.tagName("img")).below(nyc));
+        // Eger bir tane element'den tarif ettigimizde yine de bulamazsak
+        // birden fazla elementi refere edebiliriz
+
+        WebElement berlin4= driver.findElement(RelativeLocator.with(By.tagName("img"))
+                .below(nyc)
+                .toRightOf(bostonElementi)
+                .above(sailorElementi));
+        //3 ) Relative locator’larin dogru calistigini test edin
+        //   id'si pid7_thumb oldugunu test edelim
+
+        String expectedIdDegeri="pid7_thumb";
+        String actualIdDegeri=berlin4.getAttribute("Id");
+        if (expectedIdDegeri.equals(actualIdDegeri)){
+            System.out.println("Relative locator testi PASSED");
+        }else {
+            System.out.println("Relative locator testi FAILED");
+        }
 
 
-        // Sailor 'in ustundeki diyelim
-
-        //   3 ) Relative locator’larin dogru calistigini test edin
-        //id'si pid7_thumb oldugunu test edelim
-
-         String exceptedDegeri="id'si pid7_thumb";
-         String actualDegeri=berlin1.getAttribute("Id");
-
-         if (exceptedDegeri.equals(actualDegeri)){
-             System.out.println("Relative  locator testi PASSED");
-         }else {
-             System.out.println("Relative locator testi FAILED");
-         }
 
 
-
-     driver.close();
+        driver.close();
     }
 }
