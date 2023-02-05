@@ -25,6 +25,7 @@ public class C02_CssSelector {
         driver.navigate().refresh();
 
         //5-  Sayfa basliginin “Spend less” ifadesi icerdigini test edin
+
         String expectedMetin="Spend less";
         String actualTitle= driver.getTitle();
         if (actualTitle.contains(expectedMetin)){
@@ -64,9 +65,9 @@ public class C02_CssSelector {
         //11-Sayfayi kapatin
 
 
-
-
            Thread.sleep(3000);
            driver.close();
+
+
     }
 }
